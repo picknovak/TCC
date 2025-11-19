@@ -23,12 +23,12 @@ Os passos a seguir foram:
 4º  -  Efetuar o download da tabela: UF_MUN, contida em Municípios e Estados; 
 5º  -  Localizar o município de Pato Branco e seu respectivo CO_MUN (4118501);
 6º  -  Filtra dados de múltiplos arquivos CSV por código municipal e organiza por ano;
-        Para isso: desenvolvi um script em Python (f_mun_pato.py) onde, ao entrar com o CO_MUN (4118501) o mesmo localiza, em multiplos arquivos CSV contidos dentro das pastas de dados brutos, as ocorrências em Pato Branco e ordena-as em ordem cronológica, gerando um novo arquivo CSV;
-7º  -  Com o novo arquivo CSV em mãos, tornou-se necessário uma tradução de outras siglas contidas em seu layout, optei primeiramente pela tradução dos Sistemas Harmonizado 4 (SH4). Para compreender o funcionamento dos Sistemas Harmonizados ler aqui [https://www.gov.br/siscomex/pt-br/servicos/aprendendo-a-exportar/1-classificacao-fiscal-da-mercadoria/sh-e-ncm];
-8º  -  Utilizando o novo arquivo csv filtrado por Pato Branco, desenvolvi um script em Python (f_sh6.py) que com uma entrada (o arquivo csv filtrado por Pato Branco) resulta em duas novas saídas (tabelas): 
+        Para isso: desenvolvi um script em Python (f_mun_pato.py) por meio do qual, a partir da entrada "CO_MUN = 4118501", são localizados em multiplos arquivos CSV contidos dentro das pastas de dados brutos, as ocorrências em Pato Branco e ordena-as em ordem cronológica, gerando um novo arquivo CSV;
+7º  -  Com o novo arquivo CSV em mãos, tornou-se necessário uma tradução de outras siglas contidas em seu layout. Optei, primeiramente, pela tradução dos Sistemas Harmonizado 4 (SH4). Para compreender o funcionamento dos Sistemas Harmonizados consulte [https://www.gov.br/siscomex/pt-br/servicos/aprendendo-a-exportar/1-classificacao-fiscal-da-mercadoria/sh-e-ncm];
+8º  -  Utilizando o novo arquivo csv filtrado por Pato Branco, desenvolvi um novo script em Python (f_sh6.py) que, com uma entrada (o arquivo csv filtrado por Pato Branco), resulta em duas novas saídas (tabelas): 
         a - dados ordenados de maneira hierarquica: i. ordenação por ano; ii. ordenação por frequência de repetição do SH4; iii. frequência de repetição do CO_PAIS;
         b - dados ordenados considerando a frequência em cada ano: i. frequência SH4 dentro do ano; ii. frequência do país dentro do ano;
-9º  -  Traduzir as siglas CO_PAIS e SH4: Para isso desenvolvi um script em Python que lê os dados ordenados e traduz SH4 e CO_PAIS usando dicionários CSV disponibilizados nas tabelas NCM_SH.csv (contendo o SH4) e PAIS.csv (contendo os países);
-10º -  Como resultado obtive quatro tabelas CSV, ordenadas como explitico no 8º passo.
+9º  -  Traduzir as siglas CO_PAIS e SH4: Para isso desenvolvi um terceiro script em Python (dicionario.py) que lê os dados ordenados e traduz SH4 e CO_PAIS usando dicionários CSV disponibilizados nas tabelas NCM_SH.csv (contendo o SH4) e PAIS.csv (contendo os países);
+10º -  Como resultado obtive quatro tabelas CSV, ordenadas como explicitado no oitavo item, agora traduzidas.
 
 
