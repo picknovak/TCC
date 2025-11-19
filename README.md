@@ -1,2 +1,36 @@
 # TCC
 Scripts utilizados para filtragem de dados para elaboração do Trabalho de Conclusão de Curso - Kevin 
+
+
+A necessidade de utilização de método de filtragem para os dados Brutos advém do Informativo n° 029/2025 – 09/06/2025:
+
+  Descontinuidade dos “Arquivos Únicos Consolidados” na base de dados abertos
+  Publicado em 09/06/2025 14h53 
+  {
+    
+
+    A Secretaria de Comércio Exterior (Secex), do Ministério do Desenvolvimento, Indústria, Comércio e Serviços (MDIC), informa que os "arquivos únicos consolidados" com todos os anos (EXP_COMPLETA.zip, IMP_COMPLETA.zip, EXP_COMPLETA_MUN.zip, IMP_COMPLETA_MUN.zip), anteriormente disponibilizados na página de estatísticas de comércio exterior em dados abertos (https://www.gov.br/mdic/pt-br/assuntos/comercio-exterior/estatisticas/base-de-dados-bruta ), não estarão mais disponíveis para download no formato de arquivo único.
+
+    A sistemática de junção dos dados vinha apresentando inconsistências técnicas e lentidão. Por esse motivo, a Secex decidiu manter apenas os arquivos anuais separados, sem qualquer prejuízo aos conteúdos dos dados disponibilizados e sem perda de informação.
+
+    Recomendamos aos usuários realizar o download completo da série histórica anual (ano por ano) uma única vez e, para atualizações futuras, baixar apenas o arquivo do último ano, visto que os dados dos anos anteriores estão congelados e não sofrerão alterações. Essa medida visa aprimorar a experiência dos usuários e garantir a integridade das informações divulgadas. 
+
+
+  }
+
+Utilizando a base de dados brutos disponibilizados pelo Governo Federal via Ministério do Desenvolvimento, Industria, Comércio e Serviços (Comex Stat) disponível em https://www.gov.br/mdic/pt-br/assuntos/comercio-exterior/estatisticas/base-de-dados-bruta, em específico: 2. Base de dados detalhada por Município da empresa exportadora/importadora e Posição do Sistema Harmonizado (SH4): Arquivos CSV com separador ponto e vírgula (;) detalhado por ano, mês, código SH4, código de país de destino/origem do produto, código da UF do domicílio fiscal da empresa, código do município domicílio fiscal da empresa exportadora/importadora, quilograma líquido, valor dólar FOB (US$);
+Os passos a seguir foram: 
+
+1º  -  Efetuar o download dos 27 arquivos (1997-2024) de exportações e armazená-los em uma pasta;
+2º  -  Efetuar o download dos 27 arquivos (1997-2024) de importações e armazená-los em uma pasta;
+3º  -  Compreender o layout da base de dados: Layout: CO_ANO; CO_MES; SH4; CO_PAIS; SG_UF_MUN (sigla UF da empresa declarante); CO_MUN (código município da empresa declarante); KG_LIQUIDO; VL_FOB. Atenção: Os arquivos não devem ser utilizados em softwares de planilhas, correndo o risco de perda de linhas e informações;
+4º  -  Efetuar o download da tabela: UF_MUN, contida em Municípios e Estados; 
+5º  -  Localizar o município de Pato Branco e seu respectivo CO_MUN (4118501);
+6º  -  Filtra dados de múltiplos arquivos CSV por código municipal e organiza por ano;
+        Para isso: desenvolvi um script em Python (f_mun_pato.py) onde, ao entrar com o CO_MUN (4118501) o mesmo localiza, em multiplos arquivos CSV contidos dentro das pastas de dados brutos, as ocorrências em Pato Branco e ordena-as em ordem cronológica, gerando um novo arquivo CSV;
+7º  -  Com o novo arquivo CSV em mãos, tornou-se necessário uma tradução de outras siglas contidas em seu layout, optei primeiramente pela tradução dos Sistemas Harmonizado 4 (SH4). Para compreender o funcionamento dos Sistemas Harmonizados ler aqui [https://www.gov.br/siscomex/pt-br/servicos/aprendendo-a-exportar/1-classificacao-fiscal-da-mercadoria/sh-e-ncm];
+8º  -  Utilizando o novo arquivo csv filtrado por Pato Branco, desenvolvi um script em Python (f_sh6.py) que com uma entrada (o arquivo csv filtrado por Pato Branco) resulta em duas novas saídas (tabelas): 
+        a - dados ordenados de maneira hierarquica: i. ordenação por ano; ii. ordenação por frequência de repetição do SH4; iii. frequência de repetição do CO_PAIS;
+        b - dados ordenados considerando a frequência em cada ano: i. frequência SH4 dentro do ano; ii. frequência do país dentro do ano;
+9º  -  Traduzir as siglas CO_PAIS e SH4: Para isso desenvolvi um script em Python que lê os dados ordenados e traduz SH4 e CO_PAIS usando dicionários CSV disponibilizados nas tabelas NCM_SH.csv (contendo o SH4) e PAIS.csv (contendo os países);
+10º -  Como resultado obtive quatro tabelas CSV, ordenadas como explitico no 8º passo.
